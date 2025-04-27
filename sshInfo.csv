@@ -1,0 +1,5 @@
+hostname,ip,username,password
+R1-Zhang,198.51.100.1,admin,cisco
+R2-Zhang,198.51.101.2,admin,cisco
+R3-Zhang,176.16.1.3,admin,cisco
+R4-Zhang,198.51.101.3,admin,cisco
