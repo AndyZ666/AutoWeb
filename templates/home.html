@@ -1,14 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Network Automation</title>
+    <meta charset="UTF-8">
+    <title>Network Automation Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 40px;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .button-container a {
+            text-decoration: none;
+        }
+        .btn {
+            background-color: #3498db;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            transition: background-color 0.3s, transform 0.3s;
+            text-align: center;
+            min-width: 250px;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
 <body>
-    <h2>Network Automation - OSPF & Config Management</h2>
-    <ul>
-        <li><a href="/getconfig">Get Config</a></li>
-        <li><a href="/ospf">Configure OSPF</a></li>
-        <li><a href="/diffconfig">Compare Config</a></li>
-    </ul>
+    <h1>Welcome to Network Automation Portal</h1>
+
+    <div class="button-container">
+        <a href="{{ url_for('get_config') }}">
+            <button class="btn">Get Router Config</button>
+        </a>
+        <a href="{{ url_for('select_router') }}">
+            <button class="btn">Configure OSPF</button>
+        </a>
+        <a href="{{ url_for('diff_conf') }}">
+            <button class="btn">Diff Router Config</button>
+        </a>
+        <a href="{{ url_for('migration') }}">
+            <button class="btn">Migration</button>
+        </a>
+    </div>
 </body>
 </html>
+

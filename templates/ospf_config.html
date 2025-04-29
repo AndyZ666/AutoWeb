@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Configuration Saved</title>
+    <title>OSPF Configuration - {{ router }}</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -10,23 +10,28 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            height: 100vh;
             margin: 0;
-            padding-top: 50px;
         }
         h2 {
             color: #2c3e50;
             margin-bottom: 30px;
         }
-        ul {
+        .form-container {
             background-color: white;
-            padding: 20px;
+            padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            list-style-type: none;
+            text-align: center;
         }
-        li {
-            margin: 10px 0;
-            font-size: 18px;
+        select {
+            padding: 10px;
+            width: 250px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
         }
         .btn {
             background-color: #3498db;
@@ -44,23 +49,22 @@
             background-color: #2980b9;
             transform: translateY(-2px);
         }
-        .button-container {
-            margin-top: 30px;
-        }
     </style>
 </head>
 <body>
-    <h2>Configuration Saved Successfully!</h2>
+    <h2>Enter OSPF Configuration for Router {{ router }}</h2>
 
-    <ul>
-        {% for file in filenames %}
-            <li>{{ file }}</li>
-        {% endfor %}
-    </ul>
+    <form method="POST">
+        <input type="text" name="ospf_process" placeholder="OSPF Process ID" required><br>
+        <input type="text" name="ospf_area" placeholder="OSPF Area ID" required><br>
+        <input type="text" name="loopback" placeholder="Loopback IP Address" required><br>
+
+        <button type="submit" class="btn">Save OSPF Configuration</button>
+    </form>
 
     <div class="button-container">
+        <a href="{{ url_for('ospf_ssh', router=router) }}" class="btn">Return to Previous</a>
         <a href="{{ url_for('home') }}" class="btn">Return to Home</a>
-        <a href="{{ url_for('get_config') }}" class="btn">Get More Configs</a>
     </div>
 </body>
 </html>

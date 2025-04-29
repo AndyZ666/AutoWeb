@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Configuration Saved</title>
+    <title>Select Routers to Get Config</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,14 +17,18 @@
             color: #2c3e50;
             margin-bottom: 30px;
         }
-        ul {
+        form {
             background-color: white;
-            padding: 20px;
+            padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            list-style-type: none;
+            text-align: center;
         }
-        li {
+        .checkbox-group {
+            margin-bottom: 20px;
+        }
+        .checkbox-group label {
+            display: block;
             margin: 10px 0;
             font-size: 18px;
         }
@@ -50,17 +54,22 @@
     </style>
 </head>
 <body>
-    <h2>Configuration Saved Successfully!</h2>
+    <h2>Select Routers to Get Configuration</h2>
 
-    <ul>
-        {% for file in filenames %}
-            <li>{{ file }}</li>
-        {% endfor %}
-    </ul>
+    <form method="POST" action="{{ url_for('get_config') }}">
+        <div class="checkbox-group">
+            {% for router in routers %}
+                <label><input type="checkbox" name="routers" value="{{ router }}"> Router {{ router }}</label>
+            {% endfor %}
+            <label><input type="checkbox" name="routers" value="All"> All Routers</label>
+        </div>
+
+        <button type="submit" class="btn">Download Config</button>
+    </form>
 
     <div class="button-container">
         <a href="{{ url_for('home') }}" class="btn">Return to Home</a>
-        <a href="{{ url_for('get_config') }}" class="btn">Get More Configs</a>
+        <a href="javascript:history.back()" class="btn">Go Back</a>
     </div>
 </body>
 </html>

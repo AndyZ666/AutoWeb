@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Configuration Saved</title>
+    <title>Configuration Differences</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,14 +17,18 @@
             color: #2c3e50;
             margin-bottom: 30px;
         }
-        ul {
+        form {
             background-color: white;
-            padding: 20px;
+            padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            list-style-type: none;
+            text-align: center;
         }
-        li {
+        .checkbox-group {
+            margin-bottom: 20px;
+        }
+        .checkbox-group label {
+            display: block;
             margin: 10px 0;
             font-size: 18px;
         }
@@ -50,17 +54,24 @@
     </style>
 </head>
 <body>
-    <h2>Configuration Saved Successfully!</h2>
+    <h1>Configuration Differences (Generated {{ timestamp }})</h1>
 
-    <ul>
-        {% for file in filenames %}
-            <li>{{ file }}</li>
-        {% endfor %}
-    </ul>
+    {% for router, diff_lines in diffs.items() %}
+        <h2>Router: {{ router }}</h2>
+        {% if diff_lines %}
+            <pre>
+{% for line in diff_lines %}
+{{ line }}
+{% endfor %}
+            </pre>
+        {% else %}
+            <p>No differences found.</p>
+        {% endif %}
+        <hr>
+    {% endfor %}
 
     <div class="button-container">
         <a href="{{ url_for('home') }}" class="btn">Return to Home</a>
-        <a href="{{ url_for('get_config') }}" class="btn">Get More Configs</a>
     </div>
 </body>
 </html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OSPF Configuration Success</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        select {
+            padding: 10px;
+            width: 250px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        .btn {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            margin: 10px;
+            transition: background-color 0.3s, transform 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body style="text-align: center; font-family: Arial, sans-serif;">
+
+    <h1>Configuration Completed Successfully for {{ router }}!</h1>
+
+    <h2>Interface IP Addresses with Validation</h2>
+    <pre>{{ table_output }}</pre>
+
+    <h2>OSPF Configured Interfaces</h2>
+    <table border="1" style="margin:auto;">
+        <tr>
+            <th>Interface</th>
+            <th>IP Address</th>
+            <th>OSPF Area</th>
+        </tr>
+        {% for iface in ospf_interfaces %}
+        <tr>
+            <td>{{ iface.interface }}</td>
+            <td>{{ iface.ip }}</td>
+            <td>{{ iface.area }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Ping Results from R1</h2>
+    <h3>Successful Pings:</h3>
+    {% for ip in success_ping %}
+    <p>{{ ip }}</p>
+    {% endfor %}
+
+    <h3>Failed Pings:</h3>
+    {% for ip in failed_ping %}
+    <p>{{ ip }}</p>
+    {% endfor %}
+
+    <br><br>
+    <div class="button-container">
+        <a href="{{ url_for('select_router') }}" class="btn">Configure another device</a>
+        <a href="{{ url_for('home') }}" class="btn">Return to Home</a>
+</body>
+</html>
+
